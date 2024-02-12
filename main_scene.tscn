@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bey7ffc41q5je"]
 
-[ext_resource type="Script" path="res://map.gd" id="3_0jven"]
-[ext_resource type="PackedScene" uid="uid://cx8a34ojq203d" path="res://tower.tscn" id="4_2ym4r"]
+[ext_resource type="Script" path="res://Scripts/map.gd" id="3_0jven"]
+[ext_resource type="PackedScene" uid="uid://cx8a34ojq203d" path="res://Scenes/tower.tscn" id="4_2ym4r"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_trnuj"]
 distance = -450.0

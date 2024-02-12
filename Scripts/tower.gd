@@ -20,8 +20,9 @@ var bullet_count_label : Label
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	color = Color((randi() % 100) as float / 100, (randi() % 100) as float / 100, (randi() % 100) as float / 100)
+	action_timer = (randi() % 25 + 25) / 10
 	
-	bullet_scene = load("res://bullet.tscn")
+	bullet_scene = load("res://Scenes/bullet.tscn")
 	tower_sprite = get_node("TowerSprite")
 	tower_sprite.color = color
 	

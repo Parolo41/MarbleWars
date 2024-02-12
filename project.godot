@@ -13,7 +13,6 @@ config_version=5
 config/name="MarbleWars"
 run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
 
 [display]
 

@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://co5y5e0hcij0t"]
 
-[ext_resource type="Script" path="res://square.gd" id="1_avqno"]
+[ext_resource type="Script" path="res://Scripts/square.gd" id="1_v7qbc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ws17"]
 size = Vector2(8, 8)
 
 [node name="Square" type="Area2D"]
 collision_mask = 3
-script = ExtResource("1_avqno")
+script = ExtResource("1_v7qbc")
 
 [node name="SquareCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7ws17")

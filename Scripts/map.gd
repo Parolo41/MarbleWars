@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var square_scene : PackedScene = load("res://square.tscn")
+	var square_scene : PackedScene = load("res://Scenes/square.tscn")
 	
 	var towers = get_node("Towers")
 	var square_grid = get_node("SquareGrid")

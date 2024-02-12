@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cx8a34ojq203d"]
 
-[ext_resource type="Script" path="res://tower.gd" id="1_wp8m3"]
-[ext_resource type="Script" path="res://towersprite.gd" id="2_gedee"]
+[ext_resource type="Script" path="res://Scripts/tower.gd" id="1_wp8m3"]
+[ext_resource type="Script" path="res://Scripts/towersprite.gd" id="2_gedee"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y1q3c"]
 font_size = 8
