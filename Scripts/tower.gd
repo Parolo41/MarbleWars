@@ -2,6 +2,7 @@ extends Node2D
 
 class_name Tower
 
+var color_name : String
 var color : Color
 
 var home_square : Square
@@ -19,7 +20,6 @@ var bullet_count_label : Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	color = Color((randi() % 100) as float / 100, (randi() % 100) as float / 100, (randi() % 100) as float / 100)
 	action_timer = (randi() % 25 + 25) / 10
 	
 	bullet_scene = load("res://Scenes/bullet.tscn")
@@ -50,7 +50,7 @@ func _process(delta):
 		if action_timer <= 0:
 			if randi() % 10 >= 6:
 				double_bullets()
-				action_timer += (randi() % 25 + 25) / 10
+				action_timer += (float)(randi() % 25 + 25) / 10
 			else:
 				begin_firing()
 				action_timer += 0.05
@@ -58,6 +58,11 @@ func _process(delta):
 		action_timer -= delta
 		
 		timer_label.text = "%.02f" % action_timer
+
+
+func set_color(new_color):
+	color = new_color
+	tower_sprite.color = new_color
 
 
 func double_bullets():
