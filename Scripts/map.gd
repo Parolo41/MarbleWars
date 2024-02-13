@@ -1,5 +1,14 @@
 extends Node2D
 
+var tower_scene : PackedScene = load("res://Scenes/tower.tscn")
+var square_scene : PackedScene = load("res://Scenes/square.tscn")
+
+var tower_grid : Node2D
+var square_grid : Node2D
+
+var towers = []
+var squares = []
+
 var colors = [
 	["Red", "FF0000"],
 	["Salmon", "FA8072"],
@@ -30,41 +39,76 @@ var colors = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var tower_scene : PackedScene = load("res://Scenes/tower.tscn")
-	var square_scene : PackedScene = load("res://Scenes/square.tscn")
-	
-	var towers = get_node("Towers")
-	var square_grid = get_node("SquareGrid")
+	tower_grid = get_node("TowerGrid")
+	square_grid = get_node("SquareGrid")
 	
 	colors.shuffle()
+	
+	setup_towers()
+	setup_squares()
+
+
+func _draw():
+	for n in range(0, 45):
+		for m in range(0, 45):
+			var current_square = squares[n][m] as Square
+			var right_square = squares[wrapf(n + 1, 0, 45)][m] as Square
+			var down_square = squares[n][wrapf(m + 1, 0, 45)] as Square
+			
+			if current_square.tower != right_square.tower:
+				draw_rect(Rect2(current_square.position.x + 4, current_square.position.y + -5, 2, 10), Color.BLACK)
+			
+			if current_square.tower != down_square.tower:
+				draw_rect(Rect2(current_square.position.x + -5, current_square.position.y + 4, 10, 2), Color.BLACK)
+
+
+func _on_body_entered(body : Node2D, square : Square):
+	var bullet := body as Bullet
+	if not bullet or bullet.tower == square.tower:
+		return
+	square.color = bullet.color
+	square.tower = bullet.tower
+	square.queue_redraw()
+	bullet.queue_free()
+	
+	queue_redraw()
+
+
+func setup_towers():
 	var color_index = 0
 	
 	for n in range(1, 6):
+		var tower_row = []
+		
 		for m in range(1, 6):
 			var new_tower = tower_scene.instantiate() as Tower
-			towers.add_child(new_tower)
 			new_tower.position = Vector2((n * 90) - 45, (m * 90) - 45)
 			new_tower.color_name = colors[color_index][0]
-			new_tower.set_color(Color(colors[color_index][1]))
+			new_tower.color = colors[color_index][1]
+			
+			tower_grid.add_child(new_tower)
+			tower_row.append(new_tower)
+			
 			color_index += 1
-	
-	for node in towers.get_children():
-		var tower = node as Tower
-		if not tower:
-			continue
+		towers.append(tower_row)
+
+
+func setup_squares():
+	for n in range(0, 45):
+		var square_row = []
 		
-		for n in range(-4, 5):
-			for m in range(-4, 5):
-				var new_square = square_scene.instantiate() as Square
-				square_grid.add_child(new_square)
-				new_square.position = tower.position + Vector2(n * 10, m * 10)
-				new_square.color = tower.color
-				new_square.tower = tower
-				
-				if n == 0 and m == 0:
-					tower.home_square = new_square
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+		for m in range(0, 45):
+			var local_tower = towers[floor(n / 9)][floor(m / 9)] as Tower
+			var new_square = square_scene.instantiate() as Square
+			new_square.position = Vector2((n * 10) + 5, (m * 10) + 5)
+			new_square.color = local_tower.color
+			new_square.tower = local_tower
+			
+			if m % 9 == 4 and n % 9 == 4:
+				local_tower.home_square = new_square
+			
+			new_square.body_entered.connect(_on_body_entered.bind(new_square))
+			
+			square_grid.add_child(new_square)
+			square_row.append(new_square)
+		squares.append(square_row)

@@ -19,7 +19,6 @@ func _process(delta):
 
 func _physics_process(delta):
 	move_and_collide(direction * delta)
-	pass
 
 
 func _draw():

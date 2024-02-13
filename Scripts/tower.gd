@@ -23,11 +23,14 @@ func _ready():
 	action_timer = (randi() % 25 + 25) / 10
 	
 	bullet_scene = load("res://Scenes/bullet.tscn")
-	tower_sprite = get_node("TowerSprite")
-	tower_sprite.color = color
+	tower_sprite = get_node("TowerSprite") as TowerSprite
 	
 	timer_label = get_node("Timer")
 	bullet_count_label = get_node("BulletCount")
+	
+	bullet_count_label.text = "1"
+	
+	tower_sprite.color = color
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,11 +63,6 @@ func _process(delta):
 		timer_label.text = "%.02f" % action_timer
 
 
-func set_color(new_color):
-	color = new_color
-	tower_sprite.color = new_color
-
-
 func double_bullets():
 	bullets_loaded *= 2
 	bullet_count_label.text = "%d" % bullets_loaded
@@ -79,4 +77,5 @@ func fire_bullet():
 	new_bullet.tower = home_square.tower
 	new_bullet.color = home_square.color
 	new_bullet.direction = Vector2.UP.rotated(tower_sprite.rotation) * 100
+	
 	add_child(new_bullet)

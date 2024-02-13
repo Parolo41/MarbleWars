@@ -36,7 +36,7 @@ shape = SubResource("WorldBoundaryShape2D_rqega")
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("3_0jven")
 
-[node name="Towers" type="Node2D" parent="Map"]
+[node name="TowerGrid" type="Node2D" parent="Map"]
 z_index = 1
 
 [node name="SquareGrid" type="Node2D" parent="Map"]
