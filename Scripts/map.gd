@@ -2,12 +2,16 @@ extends Node2D
 
 var tower_scene : PackedScene = load("res://Scenes/tower.tscn")
 var square_scene : PackedScene = load("res://Scenes/square.tscn")
+var marble_scene : PackedScene = load("res://Scenes/marble.tscn")
 
 var tower_grid : Node2D
 var square_grid : Node2D
+var marble_run : Node2D
 
 var towers = []
 var squares = []
+
+var marble_count = 0
 
 var colors = [
 	["Red", "FF0000"],
@@ -41,11 +45,20 @@ var colors = [
 func _ready():
 	tower_grid = get_node("TowerGrid")
 	square_grid = get_node("SquareGrid")
+	marble_run = get_node("MarbleRun")
 	
 	colors.shuffle()
 	
 	setup_towers()
 	setup_squares()
+	
+	add_marble(towers[0][0])
+
+
+func _process(_delta):
+	if marble_count < 25:
+		add_marble(towers[marble_count % 5][floor(marble_count / 5)])
+		marble_count += 1
 
 
 func _draw():
@@ -74,6 +87,29 @@ func _on_body_entered(body : Node2D, square : Square):
 	queue_redraw()
 
 
+func _on_double_target_body_entered(body):
+	var marble = body as Marble
+	if not marble:
+		return
+	
+	marble.tower.double_bullets()
+	marble.queue_free()
+	add_marble.call_deferred(marble.tower)
+
+
+func _on_fire_target_body_entered(body):
+	var marble = body as Marble
+	if not marble:
+		return
+	
+	marble.tower.begin_firing()
+	marble.queue_free()
+
+
+func _on_finished_firing(tower):
+	add_marble(tower)
+
+
 func setup_towers():
 	var color_index = 0
 	
@@ -85,6 +121,8 @@ func setup_towers():
 			new_tower.position = Vector2((n * 90) - 45, (m * 90) - 45)
 			new_tower.color_name = colors[color_index][0]
 			new_tower.color = colors[color_index][1]
+			
+			new_tower.finished_firing.connect(_on_finished_firing.bind(new_tower))
 			
 			tower_grid.add_child(new_tower)
 			tower_row.append(new_tower)
@@ -112,3 +150,11 @@ func setup_squares():
 			square_grid.add_child(new_square)
 			square_row.append(new_square)
 		squares.append(square_row)
+
+
+func add_marble(tower : Tower):
+	var new_marble = marble_scene.instantiate()
+	new_marble.tower = tower
+	new_marble.position.x += ((float)(randi() % 100) / 100) - 0.5
+	
+	marble_run.add_child(new_marble)

@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bey7ffc41q5je"]
+[gd_scene load_steps=14 format=3 uid="uid://bey7ffc41q5je"]
 
+[ext_resource type="Texture2D" uid="uid://bu7xxlll4bhmd" path="res://Sprites/marble_wars_overlay.png" id="2_aykxr"]
+[ext_resource type="PackedScene" uid="uid://bo3uqhmehf6bd" path="res://Scenes/obstacle.tscn" id="2_g3ot7"]
 [ext_resource type="Script" path="res://Scripts/map.gd" id="3_0jven"]
+[ext_resource type="Script" path="res://divider.gd" id="3_d1662"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_trnuj"]
 distance = -450.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cronw"]
 normal = Vector2(-1, 0)
-distance = -450.0
+distance = -660.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_64ef2"]
 normal = Vector2(0, 1)
@@ -15,10 +18,24 @@ normal = Vector2(0, 1)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rqega"]
 normal = Vector2(1, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0xky"]
+size = Vector2(10, 450)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhljc"]
+size = Vector2(80, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4ku3"]
+font_size = 10
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbrnr"]
+size = Vector2(110, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejw78"]
+font_size = 10
+
 [node name="Scene_Root" type="Node2D"]
 
 [node name="Borders" type="StaticBody2D" parent="."]
-collision_layer = 0
 collision_mask = 0
 
 [node name="BottomBorder" type="CollisionShape2D" parent="Borders"]
@@ -33,6 +50,10 @@ shape = SubResource("WorldBoundaryShape2D_64ef2")
 [node name="LeftBorder" type="CollisionShape2D" parent="Borders"]
 shape = SubResource("WorldBoundaryShape2D_rqega")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2(455, 225)
+shape = SubResource("RectangleShape2D_s0xky")
+
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("3_0jven")
 
@@ -40,3 +61,155 @@ script = ExtResource("3_0jven")
 z_index = 1
 
 [node name="SquareGrid" type="Node2D" parent="Map"]
+
+[node name="MarbleRun" type="Node2D" parent="Map"]
+position = Vector2(560, 50)
+
+[node name="Obstacles" type="Node2D" parent="Map/MarbleRun"]
+
+[node name="Obstacle" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 50)
+
+[node name="Obstacle2" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 100)
+
+[node name="Obstacle3" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 150)
+
+[node name="Obstacle4" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 200)
+
+[node name="Obstacle5" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 250)
+
+[node name="Obstacle6" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(0, 300)
+
+[node name="Obstacle7" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 75)
+
+[node name="Obstacle8" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 125)
+
+[node name="Obstacle9" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 175)
+
+[node name="Obstacle10" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 225)
+
+[node name="Obstacle11" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 275)
+
+[node name="Obstacle12" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-50, 325)
+
+[node name="Obstacle13" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 75)
+
+[node name="Obstacle14" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 125)
+
+[node name="Obstacle15" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 175)
+
+[node name="Obstacle16" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 225)
+
+[node name="Obstacle17" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 275)
+
+[node name="Obstacle18" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(50, 325)
+
+[node name="Obstacle19" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(100, 100)
+
+[node name="Obstacle20" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(100, 150)
+
+[node name="Obstacle21" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(100, 200)
+
+[node name="Obstacle22" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(100, 250)
+
+[node name="Obstacle23" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(100, 300)
+
+[node name="Obstacle24" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-100, 100)
+
+[node name="Obstacle25" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-100, 150)
+
+[node name="Obstacle26" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-100, 200)
+
+[node name="Obstacle27" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-100, 250)
+
+[node name="Obstacle28" parent="Map/MarbleRun/Obstacles" instance=ExtResource("2_g3ot7")]
+position = Vector2(-100, 300)
+
+[node name="Divider" type="StaticBody2D" parent="Map/MarbleRun/Obstacles"]
+position = Vector2(-15, 400)
+script = ExtResource("3_d1662")
+
+[node name="DividerCollision" type="CollisionPolygon2D" parent="Map/MarbleRun/Obstacles/Divider"]
+polygon = PackedVector2Array(0, 0, -5, 0, -5, -10, 0, -21, 5, -10, 5, 0)
+
+[node name="Targets" type="Node2D" parent="Map/MarbleRun"]
+
+[node name="DoubleTarget" type="Area2D" parent="Map/MarbleRun/Targets"]
+position = Vector2(-100, 390)
+
+[node name="DoubleTargetCollision" type="CollisionShape2D" parent="Map/MarbleRun/Targets/DoubleTarget"]
+position = Vector2(40, 5)
+shape = SubResource("RectangleShape2D_bhljc")
+
+[node name="Label" type="Label" parent="Map/MarbleRun/Targets/DoubleTarget"]
+z_index = 1
+offset_top = -2.0
+offset_right = 80.0
+offset_bottom = 12.0
+text = "x2"
+label_settings = SubResource("LabelSettings_m4ku3")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Map/MarbleRun/Targets/DoubleTarget"]
+offset_right = 80.0
+offset_bottom = 10.0
+color = Color(0, 0.615686, 0, 1)
+
+[node name="FireTarget" type="Area2D" parent="Map/MarbleRun/Targets"]
+position = Vector2(-10, 390)
+
+[node name="FireTargetCollision" type="CollisionShape2D" parent="Map/MarbleRun/Targets/FireTarget"]
+position = Vector2(55, 5)
+shape = SubResource("RectangleShape2D_dbrnr")
+
+[node name="Label" type="Label" parent="Map/MarbleRun/Targets/FireTarget"]
+z_index = 1
+offset_top = -2.0
+offset_right = 110.0
+offset_bottom = 12.0
+text = "Fire"
+label_settings = SubResource("LabelSettings_ejw78")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Map/MarbleRun/Targets/FireTarget"]
+offset_right = 110.0
+offset_bottom = 10.0
+color = Color(0.854902, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(-10, -10)
+anchor_mode = 0
+
+[node name="Overlay" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_aykxr")
+offset = Vector2(330, 225)
+
+[connection signal="body_entered" from="Map/MarbleRun/Targets/DoubleTarget" to="Map" method="_on_double_target_body_entered"]
+[connection signal="body_entered" from="Map/MarbleRun/Targets/FireTarget" to="Map" method="_on_fire_target_body_entered"]

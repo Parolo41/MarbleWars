@@ -9,7 +9,7 @@ var tower : Tower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("BulletCollision").set_radius(radius)
+	(get_node("BulletCollision").shape as CircleShape2D).radius = radius
 
 
 func _process(delta):

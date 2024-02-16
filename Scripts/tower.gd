@@ -2,35 +2,31 @@ extends Node2D
 
 class_name Tower
 
+signal finished_firing(tower : Tower)
+
 var color_name : String
 var color : Color
 
 var home_square : Square
 
-var action_timer : float = 0
 var bullets_loaded : int = 1
+var action_timer : float = 0.0
 
 var firing = false
 
 var bullet_scene : PackedScene
 var tower_sprite : TowerSprite
-
-var timer_label : Label
 var bullet_count_label : Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	action_timer = (randi() % 25 + 25) / 10
-	
 	bullet_scene = load("res://Scenes/bullet.tscn")
 	tower_sprite = get_node("TowerSprite") as TowerSprite
-	
-	timer_label = get_node("Timer")
-	bullet_count_label = get_node("BulletCount")
-	
-	bullet_count_label.text = "1"
+	bullet_count_label = get_node("BulletCountLabel")
 	
 	tower_sprite.color = color
+	
+	bullet_count_label.text = "1"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,32 +36,20 @@ func _process(delta):
 			fire_bullet()
 			bullets_loaded -= 1
 			action_timer += 0.05
+			bullet_count_label.text = str(bullets_loaded)
 		
 		if bullets_loaded < 1:
 			bullets_loaded = 1
 			firing = false
-			action_timer += (randi() % 25 + 25) / 10
+			bullet_count_label.text = str(bullets_loaded)
+			finished_firing.emit()
 		
 		action_timer -= delta
-		
-		bullet_count_label.text = "%d" % bullets_loaded
-	else:
-		if action_timer <= 0:
-			if randi() % 10 >= 6:
-				double_bullets()
-				action_timer += (float)(randi() % 25 + 25) / 10
-			else:
-				begin_firing()
-				action_timer += 0.05
-		
-		action_timer -= delta
-		
-		timer_label.text = "%.02f" % action_timer
 
 
 func double_bullets():
 	bullets_loaded *= 2
-	bullet_count_label.text = "%d" % bullets_loaded
+	bullet_count_label.text = str(bullets_loaded)
 
 
 func begin_firing():

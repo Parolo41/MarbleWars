@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://j6wgpgehqhmc"]
+
+[ext_resource type="Script" path="res://Scripts/marble.gd" id="1_kjrfe"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xf6ni"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bj8fi"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqsl4"]
+size = Vector2(80, 10)
+
+[node name="Marble" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_xf6ni")
+gravity_scale = 0.4
+script = ExtResource("1_kjrfe")
+radius = 6.0
+
+[node name="MarbleCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bj8fi")
+
+[node name="DoubleTarget" type="Area2D" parent="."]
+position = Vector2(460, 440)
+
+[node name="DoubleTargetCollision" type="CollisionShape2D" parent="DoubleTarget"]
+position = Vector2(47.5, 5)
+shape = SubResource("RectangleShape2D_oqsl4")
